@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Trade Hub - Account</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #f8fafc;
+      padding: 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; text-align: center; color: #38bdf8; }
+    p.sub { margin: 0 0 24px; text-align: center; color: #94a3b8; font-size: 14px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #94a3b8;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .tab.active { background: #0284c7; color: #fff; }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; margin-bottom: 6px; font-size: 13px; color: #cbd5e1; }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #fff;
+      font-size: 15px;
+    }
+    input:focus { outline: none; border-color: #38bdf8; }
+    button.submit-btn {
+      width: 100%;
+      padding: 13px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #0284c7;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.submit-btn:hover { background: #0369a1; }
+    button.logout-btn { background: #dc2626; margin-top: 16px; }
+    .msg {
+      margin-top: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+    .msg.error { display: block; background: rgba(220, 38, 38, 0.2); color: #fca5a5; border: 1px solid #dc2626; }
+    .msg.success { display: block; background: rgba(22, 163, 74, 0.2); color: #86efac; border: 1px solid #16a34a; }
+    .back-link { display: block; text-align: center; margin-top: 18px; color: #38bdf8; text-decoration: none; font-size: 14px; }
+    .hidden { display: none; }
+    .profile-box { background: #0f172a; padding: 16px; border-radius: 10px; border: 1px solid #334155; }
+    .profile-box p { margin: 8px 0; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Global Trade Hub</h1>
+    <p class="sub">Global & Sudan Trade Portal</p>
+
+    <div id="authSection">
+      <div class="tabs">
+        <button class="tab active" id="loginTab">Log In</button>
+        <button class="tab" id="signupTab">Sign Up</button>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" required placeholder="trader@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="submit-btn">Log In</button>
+      </form>
+
+      <form id="signupForm" class="hidden">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="signupName" required placeholder="Ahmed Mohamed" />
+        </div>
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" id="signupCountry" required placeholder="Sudan" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="signupEmail" required placeholder="trader@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password (min 6 characters)</label>
+          <input type="password" id="signupPassword" minlength="6" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="submit-btn">Create Account</button>
+      </form>
+    </div>
+
+    <div id="profileSection" class="hidden">
+      <div class="profile-box">
+        <p><strong>Welcome:</strong> <span id="userName">-</span></p>
+        <p><strong>Email:</strong> <span id="userEmail">-</span></p>
+        <p><strong>Country:</strong> <span id="userCountry">-</span></p>
+        <p><strong>Role:</strong> <span id="userRole">Trader</span></p>
+      </div>
+      <button id="logoutBtn" class="submit-btn logout-btn">Log Out</button>
+    </div>
+
+    <div id="messageBox" class="msg"></div>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script type="module">
+    import { signUpUser, loginUser, getUserProfile, logoutUser } from './auth.js';
+
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const authSection = document.getElementById('authSection');
+    const profileSection = document.getElementById('profileSection');
+    const messageBox = document.getElementById('messageBox');
+
+    /**
+     * @param {string} text
+     * @param {string} type
+     */
+    function showMessage(text, type) {
+      messageBox.textContent = text;
+      messageBox.className = 'msg ' + type;
+    }
+
+    function clearMessage() {
+      messageBox.className = 'msg';
+      messageBox.textContent = '';
+    }
+
+    loginTab.addEventListener('click', () => {
+      loginTab.classList.add('active');
+      signupTab.classList.remove('active');
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+      clearMessage();
+    });
+
+    signupTab.addEventListener('click', () => {
+      signupTab.classList.add('active');
+      loginTab.classList.remove('active');
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+      clearMessage();
+    });
+
+    async function checkSession() {
+      const result = await getUserProfile();
+      if (result && result.user) {
+        authSection.classList.add('hidden');
+        profileSection.classList.remove('hidden');
+        document.getElementById('userEmail').textContent = result.user.email || '';
+        document.getElementById('userName').textContent = result.profile?.full_name || 'Global Trader';
+        document.getElementById('userCountry').textContent = result.profile?.country || 'Sudan';
+        document.getElementById('userRole').textContent = result.profile?.role || 'buyer';
+      } else {
+        authSection.classList.remove('hidden');
+        profileSection.classList.add('hidden');
+      }
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMessage();
+      const email = /** @type {HTMLInputElement} */ (document.getElementById('loginEmail')).value;
+      const password = /** @type {HTMLInputElement} */ (document.getElementById('loginPassword')).value;
+
+      const { error } = await loginUser(email, password);
+      if (error) {
+        showMessage(error.message, 'error');
+      } else {
+        showMessage('Logged in successfully!', 'success');
+        await checkSession();
+      }
+    });
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMessage();
+      const fullName = /** @type {HTMLInputElement} */ (document.getElementById('signupName')).value;
+      const country = /** @type {HTMLInputElement} */ (document.getElementById('signupCountry')).value;
+      const email = /** @type {HTMLInputElement} */ (document.getElementById('signupEmail')).value;
+      const password = /** @type {HTMLInputElement} */ (document.getElementById('signupPassword')).value;
+
+      const { error } = await signUpUser(email, password, fullName, country);
+      if (error) {
+        showMessage(error.message, 'error');
+      } else {
+        showMessage('Account created! Please check your email or log in.', 'success');
+        await checkSession();
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await logoutUser();
+      showMessage('Logged out successfully.', 'success');
+      await checkSession();
+    });
+
+    checkSession();
+  </script>
+</body>
+</html>
+
