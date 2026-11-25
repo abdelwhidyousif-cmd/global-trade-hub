@@ -1,1 +1,313 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Trade Hub - My Account</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #061b35, #0c3764);
+  color: #18324d;
+}
+
+header {
+  background: #061b35;
+  color: white;
+  text-align: center;
+  padding: 23px 15px;
+  border-bottom: 3px solid #f2b632;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  color: #d8e4f1;
+}
+
+.home {
+  color: #f2b632;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 600px;
+  width: 92%;
+  margin: 35px auto;
+  padding: 28px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 12px 35px #0004;
+}
+
+h2 {
+  text-align: center;
+  color: #082b52;
+  margin-top: 0;
+}
+
+.subtitle {
+  text-align: center;
+  color: #718096;
+  font-size: 14px;
+}
+
+.profile-icon {
+  width: 75px;
+  height: 75px;
+  margin: 20px auto;
+  border-radius: 50%;
+  background: #082b52;
+  color: #f2b632;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+label {
+  display: block;
+  margin-top: 17px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  border: 1px solid #ccd5df;
+  border-radius: 8px;
+  font-size: 15px;
+  background: white;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #0b477e;
+  box-shadow: 0 0 0 3px #0b477e18;
+}
+
+.email-box {
+  background: #edf3fa;
+  padding: 13px;
+  border-radius: 8px;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  color: #34516f;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 8px;
+  background: #f2b632;
+  color: #082b52;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+}
+
+.logout {
+  background: #082b52;
+  color: white;
+  margin-top: 12px;
+}
+
+#message {
+  text-align: center;
+  margin-top: 18px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  color: #d8e4f1;
+  padding: 20px;
+  font-size: 13px;
+}
+
+@media(max-width:480px) {
+  .container {
+    padding: 22px 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Global Trade Hub</h1>
+  <p>My Account</p>
+  <a href="index.html" class="home">← Back to Home</a>
+</header>
+
+<div class="container">
+
+  <div class="profile-icon">👤</div>
+
+  <h2>Account Settings</h2>
+  <p class="subtitle">Manage your personal information</p>
+
+  <form id="accountForm">
+
+    <label>Email Address</label>
+    <div class="email-box" id="email">Loading...</div>
+
+    <label>Full Name</label>
+    <input type="text" id="fullName" required>
+
+    <label>Country</label>
+    <input type="text" id="country" required>
+
+    <label>Phone Number</label>
+    <input type="tel" id="phone" placeholder="Enter phone number">
+
+    <label>Account Type</label>
+    <select id="userType" required>
+      <option value="Buyer">Buyer</option>
+      <option value="Supplier">Supplier</option>
+    </select>
+
+    <button type="submit" id="saveButton">
+      Save Changes
+    </button>
+
+  </form>
+
+  <button type="button" class="logout" id="logoutButton">
+    Log Out
+  </button>
+
+  <div id="message"></div>
+
+</div>
+
+<footer>
+  © 2026 Global Trade Hub. All Rights Reserved.
+</footer>
+
+<script type="module">
+
+import {
+  getUserProfile,
+  updateUserProfile,
+  logoutUser
+} from './auth.js';
+
+const form = document.getElementById('accountForm');
+const message = document.getElementById('message');
+const saveButton = document.getElementById('saveButton');
+
+async function loadAccount() {
+  try {
+    const result = await getUserProfile();
+
+    if (result.error || !result.user) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const profile = result.profile || {};
+
+    document.getElementById('email').textContent =
+      result.user.email || '';
+
+    document.getElementById('fullName').value =
+      profile.full_name || '';
+
+    document.getElementById('country').value =
+      profile.country || '';
+
+    document.getElementById('phone').value =
+      profile.phone || '';
+
+    document.getElementById('userType').value =
+      profile.user_type || 'Buyer';
+
+  } catch (error) {
+    message.style.color = 'red';
+    message.textContent = error.message || 'Could not load account.';
+  }
+}
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  saveButton.disabled = true;
+  saveButton.textContent = 'Saving...';
+  message.textContent = '';
+
+  const fullName = document.getElementById('fullName').value.trim();
+  const country = document.getElementById('country').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const userType = document.getElementById('userType').value;
+
+  try {
+    const result = await updateUserProfile(
+      fullName,
+      country,
+      phone,
+      userType
+    );
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    message.style.color = 'green';
+    message.textContent = 'Your account has been updated successfully!';
+
+  } catch (error) {
+    message.style.color = 'red';
+    message.textContent =
+      error.message || 'Could not update your account.';
+  }
+
+  saveButton.disabled = false;
+  saveButton.textContent = 'Save Changes';
+});
+
+document.getElementById('logoutButton')
+.addEventListener('click', async function() {
+  try {
+    const result = await logoutUser();
+
+    if (result && result.error) {
+      throw result.error;
+    }
+
+    window.location.href = 'login.html';
+
+  } catch (error) {
+    message.style.color = 'red';
+    message.textContent = error.message || 'Logout failed.';
+  }
+});
+
+loadAccount();
+
+</script>
+
+</body>
+  </html>
+    
