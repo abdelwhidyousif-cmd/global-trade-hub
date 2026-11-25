@@ -14,74 +14,167 @@
 
 body {
   margin: 0;
-  background: #f4f7fb;
+  background: linear-gradient(135deg, #061b35, #0c3764);
   color: #18324d;
+  min-height: 100vh;
 }
 
 header {
-  background: #082b52;
+  background: #061b35;
   color: white;
-  padding: 22px;
+  padding: 22px 15px;
   text-align: center;
+  border-bottom: 3px solid #f2b632;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+header p {
+  color: #d8e4f1;
+  margin-bottom: 0;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 15px;
+  color: #f2b632;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .container {
-  max-width: 550px;
-  margin: 35px auto;
-  padding: 25px;
+  max-width: 570px;
+  width: 92%;
+  margin: 40px auto;
+  padding: 30px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 18px #0001;
+  border-radius: 15px;
+  box-shadow: 0 12px 35px #0004;
 }
 
 h2 {
   text-align: center;
   color: #082b52;
+  margin-top: 0;
+  font-size: 25px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #68798c;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+.methods {
+  background: #edf3fa;
+  border-left: 4px solid #f2b632;
+  padding: 16px;
+  border-radius: 9px;
+  margin-bottom: 24px;
+  line-height: 2;
+}
+
+.methods strong {
+  color: #082b52;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.method-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  color: #34516f;
+  font-size: 14px;
 }
 
 label {
   display: block;
-  margin-top: 16px;
+  margin-top: 17px;
   font-weight: bold;
+  color: #18324d;
+  font-size: 14px;
 }
 
 input, select {
   width: 100%;
-  padding: 13px;
-  margin-top: 7px;
+  padding: 14px;
+  margin-top: 8px;
   border: 1px solid #ccd5df;
-  border-radius: 7px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #fff;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #0b477e;
+  box-shadow: 0 0 0 3px #0b477e18;
 }
 
 button {
   width: 100%;
-  margin-top: 24px;
-  padding: 14px;
+  margin-top: 27px;
+  padding: 15px;
   background: #f2b632;
+  color: #082b52;
   border: none;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #dfa21b;
 }
 
 button:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
 }
 
 #message {
   margin-top: 18px;
   text-align: center;
   font-weight: bold;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
 }
 
-.methods {
-  background: #f4f7fb;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 18px;
-  line-height: 1.8;
+.demo-note {
+  margin-top: 20px;
+  text-align: center;
+  color: #718096;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #d8e4f1;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 22px 18px;
+    margin: 25px auto;
+  }
+
+  header h1 {
+    font-size: 23px;
+  }
+
+  .method-list {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -91,18 +184,22 @@ button:disabled {
 <header>
   <h1>Global Trade Hub</h1>
   <p>Secure Demo Payment System</p>
+  <a href="index.html" class="back">← Back to Home</a>
 </header>
 
 <div class="container">
 
   <h2>Complete Your Payment</h2>
+  <p class="subtitle">Enter your order details below</p>
 
   <div class="methods">
-    Available Payment Methods:
-    <br>Bank Transfer
-    <br>Mobile Money
-    <br>Credit / Debit Card
-    <br>Cash on Delivery
+    <strong>Available Payment Methods</strong>
+    <div class="method-list">
+      <span>🏦 Bank Transfer</span>
+      <span>📱 Mobile Money</span>
+      <span>💳 Credit / Debit Card</span>
+      <span>📦 Cash on Delivery</span>
+    </div>
   </div>
 
   <form id="paymentForm">
@@ -142,7 +239,16 @@ button:disabled {
 
   <div id="message"></div>
 
+  <div class="demo-note">
+    This is a demonstration payment system.
+    No real money will be charged.
+  </div>
+
 </div>
+
+<footer>
+  © 2026 Global Trade Hub. All Rights Reserved.
+</footer>
 
 <script type="module">
 
@@ -198,5 +304,4 @@ form.addEventListener('submit', async function(event) {
 </script>
 
 </body>
-  </html>
-    
+</html>
