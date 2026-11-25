@@ -75,3 +75,30 @@ export async function logoutUser() {
   const { error } = await supabase.auth.signOut()
   return { error }
       }
+
+/**
+ * Update current user's profile
+ * @param {string} fullName
+ * @param {string} country
+ * @param {string} phone
+ * @param {'Buyer' | 'Supplier'} userType
+ */
+export async function updateUserProfile(
+  fullName,
+  country,
+  phone,
+  userType
+) {
+  const { data, error } = await supabase.rpc(
+    'update_my_profile',
+    {
+      p_full_name: fullName,
+      p_country: country,
+      p_phone: phone,
+      p_user_type: userType
+    }
+  )
+
+  return { data, error }
+}
+  
