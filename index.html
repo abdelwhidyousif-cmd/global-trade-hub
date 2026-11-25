@@ -24,9 +24,7 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: Arial, sans-serif;
@@ -35,9 +33,7 @@ body {
   line-height: 1.7;
 }
 
-a {
-  text-decoration: none;
-}
+a { text-decoration: none; }
 
 header {
   background: var(--navy);
@@ -55,9 +51,7 @@ header {
   font-weight: bold;
 }
 
-.logo span {
-  color: var(--gold);
-}
+.logo span, footer span { color: var(--gold); }
 
 nav {
   background: #104477;
@@ -77,7 +71,7 @@ nav a {
   padding: 8px 13px;
   font-size: 14px;
   border-radius: 6px;
-  transition: 0.3s;
+  transition: .3s;
 }
 
 nav a:hover {
@@ -92,7 +86,7 @@ nav a:hover {
   padding: 12px 23px;
   border-radius: 6px;
   font-weight: bold;
-  transition: 0.3s;
+  transition: .3s;
   border: none;
   cursor: pointer;
 }
@@ -117,9 +111,7 @@ nav a:hover {
   background-position: center;
 }
 
-.hero-content {
-  max-width: 800px;
-}
+.hero-content { max-width: 800px; }
 
 .hero h1 {
   font-size: 48px;
@@ -127,9 +119,7 @@ nav a:hover {
   margin-bottom: 22px;
 }
 
-.hero h1 span {
-  color: var(--gold);
-}
+.hero h1 span { color: var(--gold); }
 
 .hero p {
   font-size: 17px;
@@ -137,9 +127,7 @@ nav a:hover {
   color: #edf4fb;
 }
 
-.hero .btn {
-  margin: 7px;
-}
+.hero .btn { margin: 7px; }
 
 .section {
   padding: 75px 7%;
@@ -163,9 +151,7 @@ nav a:hover {
   margin: 0 auto 35px;
 }
 
-.about {
-  background: white;
-}
+.about, .markets, .vision, .faq { background: white; }
 
 .stats {
   display: grid;
@@ -213,9 +199,7 @@ nav a:hover {
   object-fit: cover;
 }
 
-.card-content {
-  padding: 21px;
-}
+.card-content { padding: 21px; }
 
 .card h3 {
   color: var(--navy);
@@ -231,10 +215,6 @@ nav a:hover {
 .card .btn {
   padding: 9px 16px;
   font-size: 13px;
-}
-
-.markets {
-  background: white;
 }
 
 .market-card {
@@ -254,9 +234,7 @@ nav a:hover {
   color: white;
 }
 
-.features .section-title {
-  color: white;
-}
+.features .section-title { color: white; }
 
 .feature-card {
   background: #104477;
@@ -269,13 +247,7 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-.feature-card p {
-  color: #e5edf5;
-}
-
-.vision {
-  background: white;
-}
+.feature-card p { color: #e5edf5; }
 
 .vision-box {
   max-width: 850px;
@@ -290,14 +262,9 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-.services {
-  background: var(--light);
-}
+.services { background: var(--light); }
 
-.faq {
-  background: white;
-  text-align: left;
-}
+.faq { text-align: left; }
 
 .faq-item {
   max-width: 850px;
@@ -312,9 +279,7 @@ nav a:hover {
   margin-bottom: 7px;
 }
 
-.contact {
-  background: #eaf1f8;
-}
+.contact { background: #eaf1f8; }
 
 .contact-form {
   max-width: 600px;
@@ -352,17 +317,9 @@ footer {
   text-align: center;
 }
 
-footer h2 {
-  margin-bottom: 10px;
-}
+footer h2 { margin-bottom: 10px; }
 
-footer span {
-  color: var(--gold);
-}
-
-.footer-links {
-  margin: 20px 0;
-}
+.footer-links { margin: 20px 0; }
 
 .footer-links a {
   color: white;
@@ -370,9 +327,7 @@ footer span {
   display: inline-block;
 }
 
-.footer-links a:hover {
-  color: var(--gold);
-}
+.footer-links a:hover { color: var(--gold); }
 
 .copyright {
   border-top: 1px solid #ffffff25;
@@ -381,7 +336,7 @@ footer span {
   font-size: 13px;
 }
 
-@media(max-width: 650px) {
+@media(max-width:650px) {
   header {
     justify-content: center;
     text-align: center;
@@ -392,21 +347,11 @@ footer span {
     padding: 75px 18px;
   }
 
-  .hero h1 {
-    font-size: 34px;
-  }
+  .hero h1 { font-size: 34px; }
+  .hero p { font-size: 15px; }
 
-  .hero p {
-    font-size: 15px;
-  }
-
-  .section {
-    padding: 55px 18px;
-  }
-
-  .section-title {
-    font-size: 27px;
-  }
+  .section { padding: 55px 18px; }
+  .section-title { font-size: 27px; }
 
   nav {
     gap: 5px;
@@ -418,9 +363,7 @@ footer span {
     font-size: 13px;
   }
 
-  .contact-form {
-    padding: 20px;
-  }
+  .contact-form { padding: 20px; }
 }
 </style>
 </head>
@@ -462,24 +405,11 @@ footer span {
       Global Trade Hub is a platform designed to promote Sudanese products
       and connect local businesses with international markets.
     </p>
-
     <div class="stats">
-      <div class="stat">
-        <h3>Sudan</h3>
-        <p>Our Home Market</p>
-      </div>
-      <div class="stat">
-        <h3>Global</h3>
-        <p>International Connections</p>
-      </div>
-      <div class="stat">
-        <h3>Trade</h3>
-        <p>Business Opportunities</p>
-      </div>
-      <div class="stat">
-        <h3>Growth</h3>
-        <p>Economic Development</p>
-      </div>
+      <div class="stat"><h3>Sudan</h3><p>Our Home Market</p></div>
+      <div class="stat"><h3>Global</h3><p>International Connections</p></div>
+      <div class="stat"><h3>Trade</h3><p>Business Opportunities</p></div>
+      <div class="stat"><h3>Growth</h3><p>Economic Development</p></div>
     </div>
   </div>
 </section>
@@ -490,7 +420,6 @@ footer span {
     <p class="section-subtitle">
       Explore important Sudanese agricultural products for international trade.
     </p>
-
     <div class="cards">
 
       <div class="card">
@@ -539,27 +468,11 @@ footer span {
     <p class="section-subtitle">
       Connecting Sudanese products with international business opportunities.
     </p>
-
     <div class="cards">
-      <div class="market-card">
-        <h3>Middle East</h3>
-        <p>Trade opportunities with Middle Eastern countries.</p>
-      </div>
-
-      <div class="market-card">
-        <h3>Asia</h3>
-        <p>Expanding agricultural exports across Asian markets.</p>
-      </div>
-
-      <div class="market-card">
-        <h3>Europe</h3>
-        <p>Building international trade partnerships.</p>
-      </div>
-
-      <div class="market-card">
-        <h3>Africa</h3>
-        <p>Strengthening regional trade and cooperation.</p>
-      </div>
+      <div class="market-card"><h3>Middle East</h3><p>Trade opportunities with Middle Eastern countries.</p></div>
+      <div class="market-card"><h3>Asia</h3><p>Expanding agricultural exports across Asian markets.</p></div>
+      <div class="market-card"><h3>Europe</h3><p>Building international trade partnerships.</p></div>
+      <div class="market-card"><h3>Africa</h3><p>Strengthening regional trade and cooperation.</p></div>
     </div>
   </div>
 </section>
@@ -567,22 +480,10 @@ footer span {
 <section class="section features">
   <div class="container">
     <h2 class="section-title">Why Choose Us?</h2>
-
     <div class="cards">
-      <div class="feature-card">
-        <h3>Quality Products</h3>
-        <p>We focus on quality Sudanese agricultural products.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Global Connections</h3>
-        <p>We connect local suppliers with international buyers.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Reliable Service</h3>
-        <p>We support professional trade communication.</p>
-      </div>
+      <div class="feature-card"><h3>Quality Products</h3><p>We focus on quality Sudanese agricultural products.</p></div>
+      <div class="feature-card"><h3>Global Connections</h3><p>We connect local suppliers with international buyers.</p></div>
+      <div class="feature-card"><h3>Reliable Service</h3><p>We support professional trade communication.</p></div>
     </div>
   </div>
 </section>
@@ -590,21 +491,13 @@ footer span {
 <section class="section vision">
   <div class="container">
     <h2 class="section-title">Our Vision & Mission</h2>
-
     <div class="vision-box">
       <h3>Our Vision</h3>
-      <p>
-        To become a trusted global platform for Sudanese agricultural
-        products and international trade.
-      </p>
+      <p>To become a trusted global platform for Sudanese agricultural products and international trade.</p>
     </div>
-
     <div class="vision-box">
       <h3>Our Mission</h3>
-      <p>
-        To promote Sudanese agricultural products and build strong
-        international trade partnerships.
-      </p>
+      <p>To promote Sudanese agricultural products and build strong international trade partnerships.</p>
     </div>
   </div>
 </section>
@@ -612,74 +505,35 @@ footer span {
 <section class="section services" id="services">
   <div class="container">
     <h2 class="section-title">Our Services</h2>
-
     <div class="cards">
-      <div class="card-content">
-        <h3>Export Services</h3>
-        <p>Supporting Sudanese agricultural exports to international markets.</p>
-      </div>
-
-      <div class="card-content">
-        <h3>Import Services</h3>
-        <p>Connecting buyers and suppliers through international trade.</p>
-      </div>
-
-      <div class="card-content">
-        <h3>Business Partnerships</h3>
-        <p>Building relationships with global business partners.</p>
-      </div>
+      <div class="card"><div class="card-content"><h3>Export Services</h3><p>Supporting Sudanese agricultural exports to international markets.</p></div></div>
+      <div class="card"><div class="card-content"><h3>Import Services</h3><p>Connecting buyers and suppliers through international trade.</p></div></div>
+      <div class="card"><div class="card-content"><h3>Business Partnerships</h3><p>Building relationships with global business partners.</p></div></div>
     </div>
   </div>
 </section>
 
 <section class="section faq">
   <div class="container">
-    <h2 class="section-title" style="text-align:center;">
-      Frequently Asked Questions
-    </h2>
-
-    <div class="faq-item">
-      <h3>What products do we offer?</h3>
-      <p>We feature Sudanese agricultural products.</p>
-    </div>
-
-    <div class="faq-item">
-      <h3>Where do we export?</h3>
-      <p>Our target markets include Africa, Asia, Europe and the Middle East.</p>
-    </div>
-
-    <div class="faq-item">
-      <h3>How can customers contact us?</h3>
-      <p>Customers can send inquiries through our contact form.</p>
-    </div>
-
-    <div class="faq-item">
-      <h3>How can I join the platform?</h3>
-      <p>Create an account through our Login / Sign Up page.</p>
-    </div>
+    <h2 class="section-title" style="text-align:center;">Frequently Asked Questions</h2>
+    <div class="faq-item"><h3>What products do we offer?</h3><p>We feature Sudanese agricultural products.</p></div>
+    <div class="faq-item"><h3>Where do we export?</h3><p>Our target markets include Africa, Asia, Europe and the Middle East.</p></div>
+    <div class="faq-item"><h3>How can customers contact us?</h3><p>Customers can send inquiries through our contact form.</p></div>
+    <div class="faq-item"><h3>How can I join the platform?</h3><p>Create an account through our Login / Sign Up page.</p></div>
   </div>
 </section>
 
 <section class="section contact" id="contact">
   <div class="container">
     <h2 class="section-title">Contact Us</h2>
-    <p class="section-subtitle">
-      Contact us for trade inquiries and business opportunities.
-    </p>
-
+    <p class="section-subtitle">Contact us for trade inquiries and business opportunities.</p>
     <div class="contact-form">
       <form action="https://formsubmit.co/758420a2bd60f0f45b913ff443a95f32" method="POST">
-
         <input type="hidden" name="_subject" value="New Message - Global Trade Hub">
-
         <input type="text" name="name" placeholder="Your Name" required>
-
         <input type="email" name="email" placeholder="Your Email" required>
-
         <textarea name="message" placeholder="Your Message" required></textarea>
-
         <button type="submit" class="btn">Send Message</button>
-
       </form>
     </div>
   </div>
@@ -688,20 +542,15 @@ footer span {
 <footer>
   <h2>GLOBAL <span>TRADE HUB</span></h2>
   <p>Connecting Sudan to Global Markets</p>
-
   <div class="footer-links">
     <a href="#home">Home</a>
     <a href="#products">Products</a>
     <a href="#markets">Markets</a>
-    <a href="login.html">Account</a>
+    <a href="account.html">Account</a>
     <a href="payment.html">Payments</a>
   </div>
-
   <p>Email: abdelwahidyousif80@gmail.com</p>
-
-  <div class="copyright">
-    © 2026 Global Trade Hub. All Rights Reserved.
-  </div>
+  <div class="copyright">© 2026 Global Trade Hub. All Rights Reserved.</div>
 </footer>
 
 <script type="module">
@@ -720,6 +569,10 @@ async function updateNavUser() {
         result.user.email.split('@')[0];
 
       navBtn.textContent = 'Account: ' + name;
+      navBtn.href = 'account.html';
+    } else {
+      navBtn.textContent = 'Login / Sign Up';
+      navBtn.href = 'login.html';
     }
   } catch (error) {
     console.error('Could not load user profile:', error);
@@ -730,6 +583,5 @@ updateNavUser();
 </script>
 
 </body>
-    </html>
-      
-
+  </html>
+  
