@@ -102,3 +102,68 @@ export async function updateUserProfile(
   return { data, error }
 }
   
+/**
+ * Create Demo Payment
+ * @param {string} orderReference
+ * @param {string} paymentMethod
+ * @param {number} amount
+ */
+export async function createDemoPayment(
+  orderReference,
+  paymentMethod,
+  amount
+) {
+  const { data: { user }, error: userError } =
+    await supabase.auth.getUser()
+
+  if (userError || !user) {
+    return {
+      data: null,
+      error: userError || new Error('Please login first')
+    }
+  }
+
+  const allowedMethods = [
+    'Bank Transfer',
+    'Mobile Money',
+    'Credit/Debit Card',
+    'Cash on Delivery'
+  ]
+
+  if (!allowedMethods.includes(paymentMethod)) {
+    return {
+      data: null,
+      error: new Error('Invalid payment method')
+    }
+  }
+
+  if (!orderReference || !orderReference.trim()) {
+    return {
+      data: null,
+      error: new Error('Order reference is required')
+    }
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return {
+      data: null,
+      error: new Error('Invalid amount')
+    }
+  }
+
+  const { data, error } = await supabase
+    .from('payments')
+    .insert({
+      user_id: user.id,
+      order_reference: orderReference,
+      payment_method: paymentMethod,
+      amount: amount,
+      currency: 'USD',
+      payment_status: 'Successful'
+    })
+    .select()
+    .single()
+
+  return { data, error }
+    }
+  
