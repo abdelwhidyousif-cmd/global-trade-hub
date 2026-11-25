@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Trade Hub - Payment</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f7fb;
+  color: #18324d;
+}
+
+header {
+  background: #082b52;
+  color: white;
+  padding: 22px;
+  text-align: center;
+}
+
+.container {
+  max-width: 550px;
+  margin: 35px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px #0001;
+}
+
+h2 {
+  text-align: center;
+  color: #082b52;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin-top: 7px;
+  border: 1px solid #ccd5df;
+  border-radius: 7px;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  background: #f2b632;
+  border: none;
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+}
+
+#message {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.methods {
+  background: #f4f7fb;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 18px;
+  line-height: 1.8;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Global Trade Hub</h1>
+  <p>Secure Demo Payment System</p>
+</header>
+
+<div class="container">
+
+  <h2>Complete Your Payment</h2>
+
+  <div class="methods">
+    Available Payment Methods:
+    <br>Bank Transfer
+    <br>Mobile Money
+    <br>Credit / Debit Card
+    <br>Cash on Delivery
+  </div>
+
+  <form id="paymentForm">
+
+    <label>Order Reference</label>
+    <input
+      type="text"
+      id="orderReference"
+      placeholder="Enter Order ID"
+      required
+    >
+
+    <label>Payment Amount (USD)</label>
+    <input
+      type="number"
+      id="amount"
+      min="0.01"
+      step="0.01"
+      placeholder="Enter Amount"
+      required
+    >
+
+    <label>Select Payment Method</label>
+    <select id="paymentMethod" required>
+      <option value="">Choose Payment Method</option>
+      <option value="Bank Transfer">Bank Transfer</option>
+      <option value="Mobile Money">Mobile Money</option>
+      <option value="Credit/Debit Card">Credit/Debit Card</option>
+      <option value="Cash on Delivery">Cash on Delivery</option>
+    </select>
+
+    <button type="submit" id="payButton">
+      Pay Now
+    </button>
+
+  </form>
+
+  <div id="message"></div>
+
+</div>
+
+<script type="module">
+
+import { createDemoPayment } from './auth.js';
+
+const form = document.getElementById('paymentForm');
+const message = document.getElementById('message');
+const payButton = document.getElementById('payButton');
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  payButton.disabled = true;
+  payButton.textContent = 'Processing...';
+  message.textContent = '';
+
+  const orderReference =
+    document.getElementById('orderReference').value.trim();
+
+  const amount =
+    Number(document.getElementById('amount').value);
+
+  const paymentMethod =
+    document.getElementById('paymentMethod').value;
+
+  try {
+    const result = await createDemoPayment(
+      orderReference,
+      paymentMethod,
+      amount
+    );
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    message.style.color = 'green';
+    message.textContent =
+      'Demo payment successful! Payment ID: ' + result.data.id;
+
+    form.reset();
+
+  } catch (error) {
+    message.style.color = 'red';
+    message.textContent =
+      error.message || 'Payment failed. Please try again.';
+  }
+
+  payButton.disabled = false;
+  payButton.textContent = 'Pay Now';
+});
+
+</script>
+
+</body>
+  </html>
+    
