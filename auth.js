@@ -1,14 +1,19 @@
-// @ts-check
-import { createClient } from 'https://esm.sh'
 
-// ضع هنا رابط API URL ومفتاح Publishable key الخاصين بمشروعك
-const SUPABASE_URL = 'https://mmssphnjslhmoejqhkef.supabase.co/rest/v1/'
+// @ts-check
+
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const SUPABASE_URL = 'https://mmssphnjslhmoejqhkef.supabase.co'
+
 const SUPABASE_KEY = 'sb_publishable_usDlhGn2WqOsV5O385NZxg_TEF_3Ag8'
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+export const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+)
 
+// Sign Up
 /**
- * 1. دالة إنشاء حساب جديد
  * @param {string} email
  * @param {string} password
  * @param {string} fullName
@@ -16,8 +21,8 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
  */
 export async function signUpUser(email, password, fullName, country) {
   const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password,
+    email,
+    password,
     options: {
       data: {
         full_name: fullName,
@@ -25,26 +30,36 @@ export async function signUpUser(email, password, fullName, country) {
       }
     }
   })
+
   return { data, error }
 }
 
+// Login
 /**
- * 2. دالة تسجيل الدخول
  * @param {string} email
  * @param {string} password
  */
 export async function loginUser(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password
+    email,
+    password
   })
+
   return { data, error }
 }
 
-// 3. دالة جلب بيانات الملف الشخصي للمستخدم المسجل حالياً (محمية بـ RLS)
+// Get User Profile
 export async function getUserProfile() {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return null
+  const { data: { user }, error: userError } =
+    await supabase.auth.getUser()
+
+  if (userError) {
+    return { user: null, profile: null, error: userError }
+  }
+
+  if (!user) {
+    return { user: null, profile: null, error: null }
+  }
 
   const { data: profile, error } = await supabase
     .from('profiles')
@@ -55,8 +70,8 @@ export async function getUserProfile() {
   return { user, profile, error }
 }
 
-// 4. دالة تسجيل الخروج
+// Logout
 export async function logoutUser() {
   const { error } = await supabase.auth.signOut()
   return { error }
-}
+      }
